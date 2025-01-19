@@ -1,4 +1,4 @@
-FROM ruby:3.3-slim
+FROM ruby:3.4-slim
 
 WORKDIR /usr/src/app
 
@@ -12,6 +12,10 @@ ENV LD_PRELOAD=libjemalloc.so.2
 {{#files}}
   COPY '{{source}}' '{{target}}'
 {{/files}}
+
+{{#build_deps}}
+  RUN apt-get -y install {{{.}}}
+{{/build_deps}}
 
 {{#environment}}
   ENV {{{.}}}
